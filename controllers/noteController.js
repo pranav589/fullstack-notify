@@ -3,7 +3,6 @@ const Notes = require("../models/noteModel");
 const noteController = {
   getNotes: async (req, res) => {
     try {
-      //res.json({user_id:req.user.id})
       const notes = await Notes.find({ user_id: req.user.id });
       res.json(notes);
     } catch (err) {
@@ -21,8 +20,6 @@ const noteController = {
         user_id: req.user.id,
         name: req.user.name
       });
-      //res.json({user_id:req.user.id,name:req.user.name})
-      //res.json(newNote)
       await newNote.save();
       res.json({ msg: "Note Created" });
     } catch (err) {
@@ -37,19 +34,19 @@ const noteController = {
       return res.status(500).json({ msg: err.message });
     }
   },
-  updateNote: async (req, res) => {
+  updateNote: async(req, res) =>{
     try {
-      const{title,content,date}=req.body
-      await Notes.findOneAndUpdate({_id:req.params.id},{
-        title,
-        content,
-        date
-      })
-      res.json({msg:"Note Updated"})
+        const {title, content, date} = req.body;
+        await Notes.findOneAndUpdate({_id: req.params.id},{
+            title,
+            content,
+            date
+        })
+        res.json({msg: "Updated a Note"})
     } catch (err) {
-      return res.status(500).json({ msg: err.message });
+        return res.status(500).json({msg: err.message})
     }
-  },
+},
   getNote: async (req, res) => {
     try {
       const note=await Notes.findById(req.params.id)

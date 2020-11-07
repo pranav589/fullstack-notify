@@ -26,10 +26,10 @@ const userController = {
         password:passwordHash
       })
       await newUser.save()
-      //res.json(passwordHash)
+
       res.json({ msg: "signup success" });
     } catch (err) {
-      res.status(500).json({ msg: err.message });
+      return res.status(500).json({ msg: err.message });
     }
   },
   loginUser: async (req, res) => {
@@ -52,7 +52,7 @@ const userController = {
       res.json({token})
       res.json({ msg: "login a user" });
     } catch (err) {
-      res.status(500).json({ msg: err.message });
+      return res.status(500).json({ msg: err.message });
     }
   },
   verifiedToken:(req,res)=>{
